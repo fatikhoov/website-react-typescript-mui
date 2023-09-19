@@ -1,0 +1,132 @@
+:root {
+  /* Градиент */
+  --gradient-start-color: #d900dd;
+  --gradient-end-color: #0449f9;
+
+  /* Граница */
+  --border-width: 2px;
+  --border-radius: 100px;
+
+  /* Размеры */
+  --small-button-width: 160px;
+  --small-button-height: 50px;
+  --small-button-weight: 500;
+  --middle-button-width: 260px;
+  --middle-button-height: 60px;
+  --middle-button-weight: 600;
+  --large-button-width: 600px;
+  --large-button-height: 80px;
+  --large-button-weight: 700;
+}
+
+.fv-button {
+  height: var(--small-button-height);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: var(--small-button-weight);
+  font-size: 16px;
+  line-height: inherit;
+  text-align: center;
+  font-style: inherit;
+  border: none;
+  outline: none;
+  border-radius: var(--border-radius);
+  color: #303030;
+  background: linear-gradient(
+    267deg,
+    var(--gradient-start-color) 6.05%,
+    var(--gradient-end-color) 107.42%
+  );
+  cursor: pointer;
+  transition: 0.4s;
+  transition: background 1s ease, color 0.4s ease;
+}
+.fv-button::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: var(--border-width);
+  right: var(--border-width);
+  bottom: var(--border-width);
+  left: var(--border-width);
+  background-color: white;
+  border-radius: var(--border-radius);
+}
+
+.fv-button.background {
+  color: #fff;
+}
+.fv-button.background::before {
+  content: '';
+  background-color: transparent;
+}
+
+.fv-button.middle {
+  width: var(--middle-button-width);
+  height: var(--middle-button-height);
+  font-size: 18px;
+  font-weight: (var(--middle-button-weight));
+}
+.fv-button.large {
+  width: var(--large-button-width);
+  height: var(--large-button-height);
+  font-size: 22px;
+  font-weight: (var(--large-button-weight));
+  text-transform: uppercase;
+}
+
+/* Состояние при наведении */
+.fv-button:hover {
+  opacity: 0.9;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Состояние нажатия */
+.fv-button:active {
+  opacity: 1;
+  box-shadow: none;
+}
+.fv-button:active::before {
+  opacity: 1;
+  box-shadow: none;
+}
+/* Состояние отключения */
+.fv-button:disabled {
+  background: #e0e0e0;
+  color: rgba(0, 0, 0, 0.38); /* Слабый цвет текста для отключенной кнопки */
+  cursor: not-allowed; /* Курсор "не доступно" */
+  pointer-events: none; /* Отключение взаимодействия с кнопкой */
+}
+.fv-button:disabled::before {
+  background: #e0e0e0;
+}
+.fv-button:disabled > .absolute > .fv-button-img {
+  opacity: 0.4;
+}
+
+.fv-button > .absolute {
+  position: absolute;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+
+  width: 90%;
+}
+
+.fv-button > .fv-button-img {
+  max-height: calc(var(--small-button-width) / 6);
+}
+
+.fv-button.middle > .absolute > .fv-button-img {
+  max-height: calc(var(--middle-button-width) / 8);
+}
+.fv-button.large > .absolute > .fv-button-img {
+  max-height: calc(var(--large-button-width) / 10);
+}

@@ -1,0 +1,10 @@
+.fv-button.small {
+  width: var(--small-button-width);
+  height: var(--small-button-height);
+  font-weight: (var(--small-button-weight));
+  font-size: 16px;
+}
+
+.fv-button.small > .absolute > .fv-button-img {
+  max-height: calc(var(--small-button-width) / 6);
+}

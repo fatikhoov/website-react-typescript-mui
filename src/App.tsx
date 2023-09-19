@@ -1,14 +1,18 @@
-import React from 'react'
+import { RouterProvider } from 'react-router-dom'
 
-import './App.css'
+import Header from './modules/Header'
+import Box from '@mui/material/Box'
+import SalesMenu from './components/SalesMenu'
 
-import HomePage from './pages/home/HomePage'
+import { router } from './routes/index'
 
 function App() {
   return (
-    <div className="App">
-      <HomePage />
-    </div>
+    <Box className="App" component="span" sx={{ p: 0, m: '32px 14px' }}>
+      <Header />
+      <RouterProvider router={router} />
+      <SalesMenu />
+    </Box>
   )
 }
 
