@@ -71,3 +71,10 @@ code {
   background: blue;
   opacity: 0.04;
 }
+
+.header-title {
+  font-size: 24px !important;
+  text-decoration: none;
+  color: #222;
+  text-transform: uppercase;
+}

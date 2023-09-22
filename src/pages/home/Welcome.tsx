@@ -1,5 +1,11 @@
+import { Link } from 'react-router-dom'
+
 const Welcome = () => {
-  return <h1>Hello home page</h1>
+  return (
+    <div>
+      <h1>Главная страница</h1>
+    </div>
+  )
 }
 
 export default Welcome
