@@ -1,11 +1,10 @@
-import Box from '@mui/material/Box'
-import Header from '../../modules/Header'
+import ServicesCards from '../../modules/ServicesCards'
+import Layout from '../../UI/Layout'
 
-export default function Contact() {
+export default function MyRoot() {
   return (
-    <Box className="App" component="span" sx={{ p: 0, m: '32px 14px' }}>
-      <Header />
-      <div>Услуги</div>
-    </Box>
+    <Layout>
+      <ServicesCards />
+    </Layout>
   )
 }

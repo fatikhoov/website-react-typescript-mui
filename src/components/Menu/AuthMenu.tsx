@@ -1,14 +1,22 @@
 import * as React from 'react'
-import IconButton from '@mui/material/IconButton'
-import AccountCircle from '@mui/icons-material/AccountCircle'
 // import Switch from '@mui/material/Switch'
 // import FormControlLabel from '@mui/material/FormControlLabel'
 // import FormGroup from '@mui/material/FormGroup'
+import { styled } from '@mui/material/styles'
 import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
+import Person from '@mui/icons-material/Person'
+import Button from '@mui/material/Button'
+
+const Img = styled('img')({
+  margin: '0',
+  display: 'block',
+  maxWidth: '26px',
+  maxHeight: '26px',
+})
 
 export default function AuthMenu() {
-  const [auth, setAuth] = React.useState(false)
+  const [auth, setAuth] = React.useState(true)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
   //обработка авторизации
@@ -38,15 +46,21 @@ export default function AuthMenu() {
       </FormGroup> */}
       {auth && (
         <div>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
+          <Button
+            variant="outlined"
+            sx={{
+              width: '42px',
+              height: '42px',
+              borderRadius: '100px',
+              p: 0,
+              m: 0,
+              minWidth: 'auto',
+            }}
             onClick={handleMenu}
           >
-            <AccountCircle />
-          </IconButton>
+            {/*   <Img alt="telegram starpage" src="/images/account.png" /> */}
+            <Person color="primary" />
+          </Button>
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}

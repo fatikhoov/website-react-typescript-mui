@@ -29,7 +29,7 @@ code {
 
 #root {
   width: auto;
-  height: 100vh;
+  height: auto;
 }
 
 .wrapper {
@@ -45,7 +45,7 @@ code {
 
 .App {
   display: flex;
-  width: calc(100% - var(--margin-left) * 2);
+  width: 100%;
   height: inherit;
 
   flex-direction: column;
@@ -77,4 +77,8 @@ code {
   text-decoration: none;
   color: #222;
   text-transform: uppercase;
+}
+
+a {
+  text-decoration: none;
 }

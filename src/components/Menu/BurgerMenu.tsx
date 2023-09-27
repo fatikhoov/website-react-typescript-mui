@@ -11,6 +11,7 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
+import Menu from '@mui/icons-material/Menu'
 
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
@@ -118,11 +119,12 @@ export default function BurgerMenu() {
         }}
         onClick={toggleDrawer('left', true)}
       >
-        <div className="header-buttons-burger">
+        {/*   <div className="header-buttons-burger">
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </div> */}
+        <Menu color="primary" fontSize="large" />
       </Button>
       <Drawer
         sx={{

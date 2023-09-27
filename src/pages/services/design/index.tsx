@@ -1,3 +1,9 @@
+import Layout from '../../../UI/Layout'
+
 export default function MyDesign() {
-  return <h1>Hello Design</h1>
+  return (
+    <Layout>
+      <h1>Hello Design</h1>
+    </Layout>
+  )
 }

@@ -4,21 +4,17 @@ import { Link, useLocation } from 'react-router-dom'
 import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Unstable_Grid2'
-import ButtonBase from '@mui/material/ButtonBase'
-
+import Button from '@mui/material/Button'
+import Telegram from '@mui/icons-material/Telegram'
+import MdPhone from '@mui/icons-material/Phone'
 import AuthMenu from '../components/Menu/AuthMenu'
 import BurgerMenu from '../components/Menu/BurgerMenu'
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
 
+import List from '@mui/material/List'
 import Box from '@mui/material/Box'
 import './style.css'
 
-const Img = styled('img')({
-  margin: '0',
-  display: 'block',
-  maxWidth: '32px',
-  maxHeight: '32px',
-})
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -27,6 +23,11 @@ const Item = styled(Paper)(({ theme }) => ({
   boxShadow: 'none',
 }))
 
+const pages: { [key: string]: string } = {
+  services: 'Услуги',
+  portfolio: 'Портфолио',
+  contacts: 'Контакты',
+}
 const titles = {
   '/': 'Главная STARPAGE digital agency',
   '/services': 'Услуги STARPAGE digital agency',
@@ -76,17 +77,45 @@ export default function Header() {
             <Link className="header-logo" to={'/'}>
               <span>STARPAGE</span>
             </Link>
+            <List
+              sx={{
+                display: 'flex',
+                width: '100%',
+                justifyContent: 'center',
+                gap: '8px',
+              }}
+            >
+              {Object.entries(pages).map(([key, value]) => (
+                <Link key={key} to={`/${key}`}>
+                  <Button variant="text">{value}</Button>
+                </Link>
+              ))}
+            </List>
           </Item>
         </Grid>
         <Grid sx={{ m: 0, p: 0 }}>
-          <Item sx={{ display: 'flex', alignItems: 'center' }}>
+          <Item sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Button variant="outlined" startIcon={<MdPhone />}>
+              Позвоните мне
+            </Button>
             <AuthMenu />
-            <ButtonBase sx={{ width: '42px', height: '42px' }}>
-              <Img
+            <Button
+              variant="outlined"
+              sx={{
+                width: '42px',
+                height: '42px',
+                borderRadius: '100px',
+                p: 0,
+                m: 0,
+                minWidth: 'auto',
+              }}
+            >
+              {/*  <Img
                 alt="telegram starpage"
                 src="/images/telegram/telegram1.svg"
-              />
-            </ButtonBase>
+              /> */}
+              <Telegram color="primary" />
+            </Button>
           </Item>
         </Grid>
       </Grid>

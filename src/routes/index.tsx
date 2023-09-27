@@ -2,13 +2,15 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import HomePage from '../pages/home/HomePage'
 import ServicesPage from '../pages/services/ServicesPage'
-import MyRoot from '../pages/services/Root'
 
 import ErrorPage from '../pages/ErrorPage'
 
 import MyWebsites from '../pages/services/websites/index'
 import MyDesign from '../pages/services/design/index'
 import MyDevelopment from '../pages/services/development/index'
+import LandingPage from '../pages/services/websites/landing'
+import EcommercePage from '../pages/services/websites/ecommerce'
+import BussinessPage from '../pages/services/websites/bussiness'
 
 export const router = createBrowserRouter([
   {
@@ -21,11 +23,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/services',
-    element: <MyRoot />,
+    element: <ServicesPage />,
     handle: {
       crumb: () => 'Услуги',
     },
-    children: [
+    /* children: [
       {
         path: 'websites',
         element: <MyWebsites />,
@@ -41,13 +43,32 @@ export const router = createBrowserRouter([
         path: 'development',
         element: <MyDevelopment />,
       },
+    ], */
+  },
+  {
+    path: '/services/websites',
+    element: <MyWebsites />,
+    children: [
+      {
+        path: 'landing',
+        element: <LandingPage />,
+      },
+      {
+        path: 'ecommerce',
+        element: <EcommercePage />,
+      },
+      {
+        path: 'bussiness',
+        element: <BussinessPage />,
+      },
     ],
   },
   {
-    path: '/ServicesPage',
-    element: <ServicesPage />,
-    handle: {
-      crumb: () => 'Страница услуг',
-    },
+    path: '/services/design',
+    element: <MyDesign />,
+  },
+  {
+    path: '/services/development',
+    element: <MyDevelopment />,
   },
 ])

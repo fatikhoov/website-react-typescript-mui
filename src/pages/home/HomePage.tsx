@@ -1,17 +1,15 @@
+import Layout from '../../UI/Layout'
 import Welcome from './Welcome'
+import ServicesCards from '../../modules/ServicesCards'
 
-import Box from '@mui/material/Box'
-import Header from '../../modules/Header'
-
-import SalesMenu from '../../components/Menu/SalesMenu'
+import './home.css'
 
 const HomePage = () => {
   return (
-    <Box className="App" sx={{ p: 0, m: '32px 14px' }}>
-      <Header />
+    <Layout>
       <Welcome />
-      {/* <SalesMenu /> */}
-    </Box>
+      <ServicesCards />
+    </Layout>
   )
 }
 
