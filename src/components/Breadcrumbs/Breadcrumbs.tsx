@@ -1,47 +1,62 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-
-// Определим объект с названиями страниц
-const pageTitles: Record<string, string> = {
-  '/': 'Главная',
-  '/services': 'Услуги',
-  '/services/websites': 'Разработка сайтов',
-  '/services/websites/landing': 'лендинг страница',
-  '/services/websites/ecommerce': 'интернет-магазин',
-  '/services/websites/bussiness': 'корпоративный сайт',
-  '/services/design': 'Дизайн',
-  '/services/development': 'Программирование',
+interface BreadcrumbsProps {
+  symbols: string
+  homeLabel: string
+  pageTitles: Record<string, string>
+  color: string
+  disabledColor: string
 }
-
-function Breadcrumbs() {
+function Breadcrumbs({
+  symbols,
+  homeLabel,
+  pageTitles,
+  color,
+  disabledColor,
+}: BreadcrumbsProps) {
   const location = useLocation()
-  const pathnames = location.pathname.split('/').filter((x) => x)
-
+  const [symbol, setSymbol] = useState<string>(symbols)
+  const [count, setCount] = useState<number>(1)
+  const [newPathnames, setNewPathnames] = useState<string[]>([])
+  const [myNewPathnames, setMyNewPathnames] = useState<string[]>([])
+  useEffect(() => {
+    const newPathnames = location.pathname.split('/').filter((x) => x)
+    const myNewPathnames = location.pathname.split('/').filter((x) => x)
+    if (newPathnames.length > 2) {
+      setSymbol('...')
+      setCount(2)
+      newPathnames.splice(0, newPathnames.length - 2)
+    } else if (newPathnames.length <= 2) {
+      setCount(1)
+      setSymbol(symbols)
+    }
+    setNewPathnames(newPathnames)
+    setMyNewPathnames(myNewPathnames)
+  }, [location.pathname, symbols, count])
   return (
     <ul style={{ display: 'flex', gap: '8px' }}>
-      {pathnames.map((path, index) => {
-        const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`
-        const crumbLabel = pageTitles[routeTo] || path
-        const isLast = index === pathnames.length - 1
+      {newPathnames.map((path, index) => {
+        const isLast = index === newPathnames.length - 1
+        const routeTo = `/${myNewPathnames.slice(0, index + count).join('/')}`
+        const crumbLabel = pageTitles[routeTo]
+        const crumbColor = isLast ? disabledColor : color
+
         return (
-          <li
-            style={{ display: 'flex', gap: '8px', color: 'rgb(155 155 155)' }}
-            key={index}
-          >
-            {index === 0 ? (
-              <Link to="/" style={{ color: 'rgb(155 155 155)' }}>
-                Главная
+          <li style={{ display: 'flex', gap: '8px', color: color }} key={index}>
+            {index === 0 && (
+              <Link to="/" style={{ color: color }}>
+                {homeLabel}
               </Link>
-            ) : (
-              ''
             )}
-            {index === 0 ? <span>{'>'}</span> : ''}
+            {index === 0 && <span>{symbol}</span>}
             {isLast ? (
-              <span>{crumbLabel}</span>
+              <span style={{ color: crumbColor }}>{crumbLabel}</span>
             ) : (
-              <Link to={routeTo}>{crumbLabel}</Link>
+              <Link to={routeTo} key={index} style={{ color: crumbColor }}>
+                {crumbLabel}
+              </Link>
             )}
-            {isLast ? '' : <span>{'>'}</span>}
+            {isLast ? '' : <span>{symbols}</span>}
           </li>
         )
       })}

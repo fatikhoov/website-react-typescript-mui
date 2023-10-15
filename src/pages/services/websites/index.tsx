@@ -6,10 +6,10 @@ import LandingPage from './landing'
 
 export default function MyWebsites() {
   const location = useLocation()
-  const pathname = location.pathname
+  const { pathname } = location
   return (
     <Layout>
-      <Grid sx={{ display: 'flex', gap: '16px' }}>
+      <Grid className="container main" sx={{ display: 'flex', gap: '16px' }}>
         <div style={{ border: '1px solid #ccc', height: 'min-content' }}>
           <h3>Каталог сайтов:</h3>
           <ServicesWebsiteMenu />

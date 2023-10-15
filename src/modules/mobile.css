@@ -1,0 +1,20 @@
+@media (max-width: 640px) {
+  .nav-header-menu,
+  .callback-header {
+    display: none !important;
+  }
+  .header-mobile-logo {
+    justify-content: space-between;
+    flex-direction: row-reverse;
+  }
+
+  .wrapper_header {
+    padding: 0 14px;
+    margin: 14px 0 0 0;
+  }
+
+  .services-list {
+    display: flex;
+    flex-direction: column;
+  }
+}

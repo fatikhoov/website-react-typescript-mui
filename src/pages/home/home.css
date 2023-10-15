@@ -1,6 +1,32 @@
-.home-welcome {
-}
-
 .title-h1 {
   font-size: 62px;
+  text-align: left;
+}
+.title-h4 {
+  font-size: 16px;
+  text-align: left;
+}
+
+.image-stars {
+  width: 48px;
+}
+
+@media (min-width: 640px) {
+  .home-welcome {
+    gap: 0 !important;
+  }
+
+  .my-square {
+    width: auto;
+    height: 200px;
+  }
+  .image-rocket {
+    margin: 0 0 0 -140px !important;
+  }
+
+  .wrapper-welcome-images {
+    padding: 0 !important;
+    position: relative;
+    flex-direction: column;
+  }
 }

@@ -27,23 +27,6 @@ export const router = createBrowserRouter([
     handle: {
       crumb: () => 'Услуги',
     },
-    /* children: [
-      {
-        path: 'websites',
-        element: <MyWebsites />,
-        handle: {
-          crumb: () => 'Сайты',
-        },
-      },
-      {
-        path: 'design',
-        element: <MyDesign />,
-      },
-      {
-        path: 'development',
-        element: <MyDevelopment />,
-      },
-    ], */
   },
   {
     path: '/services/websites',
@@ -52,6 +35,9 @@ export const router = createBrowserRouter([
       {
         path: 'landing',
         element: <LandingPage />,
+        handle: {
+          crumb: () => 'Лендинг',
+        },
       },
       {
         path: 'ecommerce',
@@ -72,3 +58,27 @@ export const router = createBrowserRouter([
     element: <MyDevelopment />,
   },
 ])
+
+export const pages: { [key: string]: string } = {
+  services: 'Услуги',
+  portfolio: 'Портфолио',
+  contacts: 'Контакты',
+}
+export const titles = {
+  '/': 'Главная',
+  '/services': 'Услуги',
+  '/services/websites': 'Сайты',
+  '/services/design': 'Дизайн',
+  '/services/development': 'Программирование',
+}
+// Определим объект с названиями страниц
+export const pageTitles: Record<string, string> = {
+  '/': 'Главная',
+  '/services': 'Услуги',
+  '/services/websites': 'Cайты',
+  '/services/websites/landing': 'Лендинг',
+  '/services/websites/ecommerce': 'интернет-магазин',
+  '/services/websites/bussiness': 'корпоративный сайт',
+  '/services/design': 'Дизайн',
+  '/services/development': 'Программирование',
+}

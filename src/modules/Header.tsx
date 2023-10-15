@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { pages, titles, pageTitles } from '../routes/index'
 
 import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
@@ -14,6 +15,7 @@ import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
 import List from '@mui/material/List'
 import Box from '@mui/material/Box'
 import './style.css'
+import './mobile.css'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -22,19 +24,6 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   boxShadow: 'none',
 }))
-
-const pages: { [key: string]: string } = {
-  services: 'Услуги',
-  portfolio: 'Портфолио',
-  contacts: 'Контакты',
-}
-const titles = {
-  '/': 'Главная STARPAGE digital agency',
-  '/services': 'Услуги STARPAGE digital agency',
-  '/services/websites': 'Разработка сайтов STARPAGE digital agency',
-  '/services/design': 'Дизайн STARPAGE digital agency',
-  '/services/development': 'Программирование STARPAGE digital agency',
-}
 
 export default function Header() {
   const location = useLocation()
@@ -46,9 +35,8 @@ export default function Header() {
 
   return (
     <Box
+      className="wrapper_header"
       sx={{
-        p: 0,
-        m: 0,
         display: 'flex',
         flexDirection: 'column',
         gap: '16px',
@@ -61,23 +49,17 @@ export default function Header() {
         alignItems="center"
         columnSpacing={2}
         xs={12}
-        sx={{ width: 'auto', height: '50px', background: '#fff', m: 0, p: 0 }}
+        className="header-wrapper"
+        sx={{ width: 'auto', background: '#fff', m: 0, p: 0 }}
       >
         <Grid sx={{ flexGrow: 1, m: 0, p: 0 }}>
-          <Item
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              textAlign: 'left',
-              alignItems: 'center',
-              gap: '16px',
-            }}
-          >
+          <Item className="header-mobile-logo">
             <BurgerMenu />
             <Link className="header-logo" to={'/'}>
               <span>STARPAGE</span>
             </Link>
             <List
+              className="nav-header-menu"
               sx={{
                 display: 'flex',
                 width: '100%',
@@ -93,7 +75,7 @@ export default function Header() {
             </List>
           </Item>
         </Grid>
-        <Grid sx={{ m: 0, p: 0 }}>
+        <Grid className="callback-header" sx={{ m: 0, p: 0 }}>
           <Item sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Button variant="outlined" startIcon={<MdPhone />}>
               Позвоните мне
@@ -122,7 +104,13 @@ export default function Header() {
       {location.pathname === '/' ? null : (
         <Grid container direction="row" xs={12}>
           <Item>
-            <Breadcrumbs />
+            <Breadcrumbs
+              symbols="—"
+              homeLabel="Главная"
+              pageTitles={pageTitles}
+              color="#1976d2"
+              disabledColor="#ccc"
+            />
           </Item>
         </Grid>
       )}

@@ -3,6 +3,10 @@
   --gradient-start-color: #d900dd;
   --gradient-end-color: #0449f9;
 }
+.wrapper_header {
+  padding: 0 32px;
+  margin: 32px 0 0 0;
+}
 
 .main__services {
   display: flex;
@@ -48,6 +52,13 @@
   -webkit-background-clip: text;
   background-clip: text;
   background-color: none;
+}
+.header-mobile-logo {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  align-items: center;
+  gap: 16px;
 }
 
 .header-buttons {

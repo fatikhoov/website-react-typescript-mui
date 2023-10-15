@@ -1,0 +1,24 @@
+@media (max-width: 640px) {
+  .home-welcome {
+    gap: 32px !important;
+  }
+
+  .title-h1 {
+    font-size: 24px;
+  }
+  .button-welcome {
+    width: 100% !important;
+  }
+
+  .home-welcome {
+    flex-direction: column !important;
+  }
+
+  .image-rocket {
+    width: 200px;
+  }
+
+  .wrapper-welcome-images {
+    flex-direction: row;
+  }
+}

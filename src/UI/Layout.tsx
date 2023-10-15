@@ -11,9 +11,9 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <Box className="App" sx={{ p: '0 32px', m: '32px 0' }}>
+    <Box className="App">
       <Header />
-      <div style={{ border: '1px solid antiquewhite' }}>{children}</div>
+      <div style={{ overflow: 'hidden' }}>{children}</div>
       {/* <SalesMenu /> */}
     </Box>
   )

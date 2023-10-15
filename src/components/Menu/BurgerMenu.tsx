@@ -9,8 +9,7 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import MailIcon from '@mui/icons-material/Mail'
+import ArrowForward from '@mui/icons-material/ArrowForward'
 import Menu from '@mui/icons-material/Menu'
 
 import ExpandLess from '@mui/icons-material/ExpandLess'
@@ -22,7 +21,7 @@ import { menuItems } from './ItemsMenu'
 type Anchor = 'top' | 'left' | 'bottom' | 'right'
 
 export default function BurgerMenu() {
-  const [servicesMenuOpen, setServicesMenuOpen] = React.useState(false)
+  const [servicesMenuOpen, setServicesMenuOpen] = React.useState(true)
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -62,9 +61,9 @@ export default function BurgerMenu() {
                 <ListItemButton
                   onClick={() => setServicesMenuOpen(!servicesMenuOpen)}
                 >
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
+                  {/*  <ListItemIcon>
+                          <ArrowForward />
+                        </ListItemIcon> */}
                   <ListItemText primary={menuItem.text} />
                   {servicesMenuOpen ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
@@ -76,9 +75,9 @@ export default function BurgerMenu() {
                   to={menuItem.to}
                   onClick={closeBurgerMenu}
                 >
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
+                  {/* <ListItemIcon>
+                          <ArrowForward />
+                        </ListItemIcon> */}
                   <ListItemText primary={menuItem.text} />
                 </ListItemButton>
               </ListItem>
@@ -93,10 +92,12 @@ export default function BurgerMenu() {
                         to={subMenuItem.to}
                         onClick={closeBurgerMenu}
                       >
-                        <ListItemIcon>
-                          <InboxIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={subMenuItem.text} />
+                        {/* <ListItemIcon>
+                          <ArrowForward />
+                        </ListItemIcon> */}
+                        <span style={{ textIndent: '20px' }}>
+                          <ListItemText primary={subMenuItem.text} />
+                        </span>
                       </ListItemButton>
                     </ListItem>
                   ))}
@@ -119,11 +120,6 @@ export default function BurgerMenu() {
         }}
         onClick={toggleDrawer('left', true)}
       >
-        {/*   <div className="header-buttons-burger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div> */}
         <Menu color="primary" fontSize="large" />
       </Button>
       <Drawer
