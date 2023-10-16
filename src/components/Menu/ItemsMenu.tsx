@@ -1,19 +1,19 @@
 export const menuItems = [
   { text: 'Главная', to: '/' },
-  /* { text: 'О компании', to: '/about' },
-  { text: 'Портфолио', to: '/portfolio' }, */
   {
     text: 'Услуги',
     to: '/services',
     subMenu: [
-      { text: 'Все услуги', to: '/services/' },
-      { text: 'Разработка сайтов', to: '/services/websites' },
-      { text: 'Дизайн', to: '/services/design' },
-      { text: 'Программирование', to: '/services/development' },
+      { text: 'Сайт-визитка', to: '/services/bussiness' },
+      { text: 'Интернет-магазин', to: '/services/ecommerce' },
+      { text: 'Лендинг', to: '/services/landing' },
     ],
   },
-  /*  { text: 'Наша команда', to: '/team' },
+  /* { text: 'О компании', to: '/about' }, */
+  { text: 'Кейсы', to: '/portfolio' },
+
+  /*  { text: 'Наша команда', to: '/team' }, */
   { text: 'Контакты', to: '/contacts' },
-  { text: 'FAQ', to: '/faq' },
+  /* { text: 'FAQ', to: '/faq' },
   { text: 'Обратная связь', to: '/feedback' }, */
 ]

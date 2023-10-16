@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { pages, titles, pageTitles } from '../routes/index'
+import { pages, pageTitles } from '../routes/index'
 
 import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
@@ -29,8 +29,8 @@ export default function Header() {
   const location = useLocation()
 
   useEffect(() => {
-    const pathname = location.pathname as keyof typeof titles
-    document.title = titles[pathname] ?? 'STARPAGE digital agency'
+    const pathname = location.pathname as keyof typeof pageTitles
+    document.title = pageTitles[pathname] ?? 'STARPAGE digital agency'
   }, [location])
 
   return (
@@ -77,11 +77,15 @@ export default function Header() {
         </Grid>
         <Grid className="callback-header" sx={{ m: 0, p: 0 }}>
           <Item sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Button variant="outlined" startIcon={<MdPhone />}>
-              Позвоните мне
-            </Button>
-            <AuthMenu />
             <Button
+              href="tel:+79991303619"
+              variant="outlined"
+              startIcon={<MdPhone />}
+            >
+              Позвонить
+            </Button>
+            <Button
+              href="https://t.me/vladislav_fatikhov"
               variant="outlined"
               sx={{
                 width: '42px',
@@ -96,8 +100,12 @@ export default function Header() {
                 alt="telegram starpage"
                 src="/images/telegram/telegram1.svg"
               /> */}
-              <Telegram color="primary" />
+              <Telegram
+                href="https://t.me/vladislav_fatikhov"
+                color="primary"
+              />
             </Button>
+            <AuthMenu />
           </Item>
         </Grid>
       </Grid>

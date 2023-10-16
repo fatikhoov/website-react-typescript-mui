@@ -1,8 +1,8 @@
+import Layout from '../../../UI/Layout'
+
 export default function LandingPage() {
   return (
-    <div>
-      {' '}
-      <h2>Landing page</h2>
+    <Layout>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, neque
         molestias! Officia quam, maxime id, optio provident blanditiis beatae,
@@ -31,7 +31,7 @@ export default function LandingPage() {
         elit. Incidunt, neque molestias! Officia quam, maxime id, optio
         provident blanditiis beatae, voluptatum reiciendis magnam autem earum?
         Aspernatur cupiditate hic nulla iste dolore?
-      </p>{' '}
-    </div>
+      </p>
+    </Layout>
   )
 }

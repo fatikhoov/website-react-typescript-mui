@@ -50,7 +50,9 @@ function Breadcrumbs({
             )}
             {index === 0 && <span>{symbol}</span>}
             {isLast ? (
-              <span style={{ color: crumbColor }}>{crumbLabel}</span>
+              <span style={{ color: crumbColor }}>
+                {crumbLabel ? crumbLabel : '(страница не найдена)'}
+              </span>
             ) : (
               <Link to={routeTo} key={index} style={{ color: crumbColor }}>
                 {crumbLabel}

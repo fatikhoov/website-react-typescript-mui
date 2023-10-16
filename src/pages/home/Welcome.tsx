@@ -1,10 +1,11 @@
-import Button, { ButtonProps } from '@mui/material/Button'
+import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 
 import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
 
-import { purple } from '@mui/material/colors'
+import steps from '../../components/form/steps'
+import CustomizedDialogs from '../../components/modals/MyModals'
 
 const Img = styled('img')({
   margin: '0',
@@ -20,19 +21,10 @@ const Item = styled(Paper)(({ theme }) => ({
   boxShadow: 'none',
 }))
 
-const StarpageButton = styled(Button)({
-  boxShadow: 'none',
-  textTransform: 'uppercase',
-  fontSize: 18,
-  borderRadius: 30,
-  background: 'linear-gradient(254deg,#d900dd 0,#0345fa 100%)',
-  fontFamily: ['Montserrat'],
-})
-
 const Welcome = () => {
   return (
     <Grid
-      className="home-welcome main"
+      className="home-welcome"
       sx={{
         display: 'flex',
         width: '100%',
@@ -50,14 +42,12 @@ const Welcome = () => {
           КРЕАТИВНЫЕ САЙТЫ
           <br />- НАША ОСОБЕННОСТЬ
         </h1>
-        <StarpageButton
-          className="button-welcome"
-          href="#"
-          variant="contained"
-          sx={{ maxWidth: '380px', width: '380px', height: '60px' }}
-        >
-          Рассчитать стоимость
-        </StarpageButton>
+        <CustomizedDialogs
+          steps={steps}
+          textButton={'Рассчитать стоимость'}
+          textKeyboard={{ next: 'Вперед', back: 'Назад' }}
+          textFinish={'Отправить'}
+        />
         <div
           className="desktop"
           style={{

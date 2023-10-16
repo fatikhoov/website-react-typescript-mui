@@ -1,8 +1,9 @@
+import Layout from '../UI/Layout'
+
 export default function ErrorPage() {
   return (
-    <div>
-      <h1>Упс..</h1>
-      <h2>Страница не найдена</h2>
-    </div>
+    <Layout>
+      <h2>ошибка 404</h2>
+    </Layout>
   )
 }

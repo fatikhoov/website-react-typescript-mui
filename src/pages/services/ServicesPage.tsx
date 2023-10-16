@@ -1,10 +1,11 @@
-import { ServicesCards } from '../../modules/ServicesCards'
+import ServicesWebsitesCards from '../../modules/ServicesCards'
 import Layout from '../../UI/Layout'
+import { pagesWebsites } from '../../routes/index'
 
 export default function MyRoot() {
   return (
     <Layout>
-      <ServicesCards />
+      <ServicesWebsitesCards pagesWebsites={pagesWebsites} />
     </Layout>
   )
 }

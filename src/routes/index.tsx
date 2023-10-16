@@ -2,12 +2,11 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import HomePage from '../pages/home/HomePage'
 import ServicesPage from '../pages/services/ServicesPage'
+import MyPortfolio from '../pages/portfolio/portfolio'
+import MyContacts from '../pages/contacts/MyContacts'
 
 import ErrorPage from '../pages/ErrorPage'
 
-import MyWebsites from '../pages/services/websites/index'
-import MyDesign from '../pages/services/design/index'
-import MyDevelopment from '../pages/services/development/index'
 import LandingPage from '../pages/services/websites/landing'
 import EcommercePage from '../pages/services/websites/ecommerce'
 import BussinessPage from '../pages/services/websites/bussiness'
@@ -29,56 +28,75 @@ export const router = createBrowserRouter([
     },
   },
   {
-    path: '/services/websites',
-    element: <MyWebsites />,
-    children: [
-      {
-        path: 'landing',
-        element: <LandingPage />,
-        handle: {
-          crumb: () => 'Лендинг',
-        },
-      },
-      {
-        path: 'ecommerce',
-        element: <EcommercePage />,
-      },
-      {
-        path: 'bussiness',
-        element: <BussinessPage />,
-      },
-    ],
+    path: '/portfolio',
+    element: <MyPortfolio />,
   },
   {
+    path: '/contacts',
+    element: <MyContacts />,
+  },
+  {
+    path: '/services/landing',
+    element: <LandingPage />,
+  },
+  {
+    path: '/services/ecommerce',
+    element: <EcommercePage />,
+  },
+  {
+    path: '/services/bussiness',
+    element: <BussinessPage />,
+  },
+  /*  {
     path: '/services/design',
     element: <MyDesign />,
   },
   {
     path: '/services/development',
     element: <MyDevelopment />,
-  },
+  }, */
 ])
 
 export const pages: { [key: string]: string } = {
   services: 'Услуги',
-  portfolio: 'Портфолио',
+  portfolio: 'Кейсы',
   contacts: 'Контакты',
 }
-export const titles = {
-  '/': 'Главная',
-  '/services': 'Услуги',
-  '/services/websites': 'Сайты',
-  '/services/design': 'Дизайн',
-  '/services/development': 'Программирование',
-}
+
 // Определим объект с названиями страниц
 export const pageTitles: Record<string, string> = {
   '/': 'Главная',
   '/services': 'Услуги',
+  '/portfolio': 'Кейсы',
+  '/contacts': 'Контакты',
   '/services/websites': 'Cайты',
-  '/services/websites/landing': 'Лендинг',
-  '/services/websites/ecommerce': 'интернет-магазин',
-  '/services/websites/bussiness': 'корпоративный сайт',
+  '/services/landing': 'Лендинг',
+  '/services/ecommerce': 'интернет-магазин',
+  '/services/bussiness': 'Сайт-визитка',
   '/services/design': 'Дизайн',
   '/services/development': 'Программирование',
+}
+
+export const pagesWebsites: Record<
+  string,
+  { title: string; description: string; dayWorks: string }
+> = {
+  bussiness: {
+    title: 'Сайт визитка',
+    description:
+      'Создаем интуитивно понятну навигацию по сайту с входами, переходами и захватывающим дизайном',
+    dayWorks: '14-21 день',
+  },
+  ecommerce: {
+    title: 'Интернет-магазин',
+    description:
+      'Разработаем полноценный магазин с корзиной, листингом и карточками товара, чтобы делать покупки легко',
+    dayWorks: '21-28 дней',
+  },
+  landing: {
+    title: 'Лендинг страница',
+    description:
+      'Продумаем и разработаем так, чтобы пользователь точно достиг цели',
+    dayWorks: '5-7 дней',
+  },
 }
