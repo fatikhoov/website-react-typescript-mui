@@ -56,7 +56,6 @@ export default function CustomizedDialogs({
   const handleClose = () => {
     setOpen(false)
   }
-
   return (
     <div style={{ width: '100%', display: 'flex' }}>
       <StarpageButton
@@ -74,11 +73,29 @@ export default function CustomizedDialogs({
       >
         <FormControl>
           <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-            <FormLabel id="demo-radio-buttons-group-label">
-              {!isSubmitted
-                ? steps[activeStep].label
-                : 'Заявка успешно отправлена'}
-            </FormLabel>
+            <p style={{ fontSize: '18px' }}>Заявка на разработку сайта</p>
+            <p style={{ fontSize: '1px', fontWeight: 400 }}>
+              Пройдите тест и получите персональный расчет
+            </p>
+
+            {!isSubmitted ? (
+              <MobileStepper
+                variant="progress"
+                steps={maxSteps + 1}
+                position="static"
+                activeStep={activeStep + 1}
+                nextButton={''}
+                backButton={''}
+                sx={{
+                  padding: '16px 0 0 0',
+                  marginBottom: '-18px',
+                  marginLeft: '-16px',
+                  marginRight: '-16px',
+                }}
+              />
+            ) : (
+              ''
+            )}
           </DialogTitle>
           <IconButton
             aria-label="close"
@@ -93,9 +110,29 @@ export default function CustomizedDialogs({
             <CloseIcon />
           </IconButton>
           <DialogContent dividers>
-            {!isSubmitted
-              ? steps[activeStep].component
-              : 'Наш менеджер в ближайшее время свяжется с Вами!'}
+            <FormLabel id="demo-radio-buttons-group-label">
+              {!isSubmitted
+                ? steps[activeStep].label
+                : 'Заявка успешно отправлена'}
+            </FormLabel>
+            {!isSubmitted ? (
+              steps[activeStep].component
+            ) : (
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'space-evenly',
+                }}
+              >
+                <p>Наш менеджер в ближайшее время свяжется с Вами!</p>
+                <img
+                  src="./images/rocket.png"
+                  style={{ width: '120px', height: '120px' }}
+                />
+              </div>
+            )}
           </DialogContent>
           {!isSubmitted ? (
             <DialogActions sx={{ justifyContent: 'space-between' }}>
@@ -109,11 +146,11 @@ export default function CustomizedDialogs({
                     {activeStep === maxSteps - 1
                       ? textFinish
                       : textKeyboard.next}
-                    {theme.direction === 'rtl' ? (
+                    {/* {theme.direction === 'rtl' ? (
                       <KeyboardArrowLeft />
                     ) : (
                       <KeyboardArrowRight />
-                    )}
+                    )} */}
                   </Button>
                 }
                 backButton={

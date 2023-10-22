@@ -20,12 +20,33 @@ export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paperScrollPaper': {
     width: '100%',
   },
+  '& .MuiLinearProgress-root': {
+    width: '100%',
+  },
   '& .MuiDialogContent-root': {
+    display: 'flex',
+    flexDirection: 'column',
     padding: theme.spacing(2),
-    height: '40vh',
+    minHeight: '260px',
+    gap: '8px',
+    borderTop: 'none',
   },
   '& .MuiDialogActions-root': {
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
+    flexDirection: 'column',
+  },
+  '& .MuiPaper-root': {
+    fontSize: '12px',
+  },
+  '& .MuiFormControlLabel-label': {
+    fontSize: '14px',
+  },
+  '& .MuiFormControl-root': {
+    display: 'flex',
+    gap: '8px',
+  },
+  '& .css-vnkopk-MuiStepLabel-iconContainer': {
+    paddingRight: '0',
   },
 }))
 export const StarpageButton = styled(Button)({

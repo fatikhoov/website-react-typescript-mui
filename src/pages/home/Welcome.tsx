@@ -1,11 +1,11 @@
-import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 
 import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
 
-import steps from '../../components/form/steps'
+/* import steps from '../../components/form/steps' */
 import CustomizedDialogs from '../../components/modals/MyModals'
+import CustomizedDialogs2 from '../../components/modals/MyModals2'
 
 const Img = styled('img')({
   margin: '0',
@@ -42,12 +42,13 @@ const Welcome = () => {
           КРЕАТИВНЫЕ САЙТЫ
           <br />- НАША ОСОБЕННОСТЬ
         </h1>
-        <CustomizedDialogs
+        {/* <CustomizedDialogs
           steps={steps}
           textButton={'Рассчитать стоимость'}
           textKeyboard={{ next: 'Вперед', back: 'Назад' }}
           textFinish={'Отправить'}
-        />
+        /> */}
+        <CustomizedDialogs2 />
         <div
           className="desktop"
           style={{
