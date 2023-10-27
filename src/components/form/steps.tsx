@@ -8,71 +8,88 @@ import { TextField } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 import ClearIcon from '@mui/icons-material/Clear'
+
 interface QuizFormProps {
+  formDataKeys: { [key: string]: string }
   formData: { [key: string]: string }
+  errorMessage: { [key: string]: string }
+  showErrors: boolean
   activeStep: number
   handleFieldChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   handleClearField: (fieldName: string) => void
 }
 
 export function QuizForm({
+  formDataKeys,
   formData,
+  errorMessage,
+  showErrors,
   activeStep,
   handleFieldChange,
   handleClearField,
 }: QuizFormProps) {
+  const stylesFlex: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+  }
+
   const steps = [
     {
       label: 'Вводные данные',
       component: (
-        <div>
-          <TextField
-            id="standard-name"
-            label="Ваше имя"
-            variant="standard"
-            name="standard-name"
-            onChange={handleFieldChange}
-            value={formData['standard-name']}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  {formData['standard-name'] && (
-                    <IconButton
-                      onClick={() => handleClearField('standard-name')}
-                      edge="end"
-                    >
-                      <ClearIcon />
-                    </IconButton>
-                  )}
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            id="standard-company"
-            label="Название компании"
-            variant="standard"
-            name="standard-company"
-            onChange={handleFieldChange}
-            value={formData['standard-company']}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  {formData['standard-name'] && (
-                    <IconButton
-                      onClick={() => handleClearField('standard-company')}
-                      edge="end"
-                    >
-                      <ClearIcon />
-                    </IconButton>
-                  )}
-                </InputAdornment>
-              ),
-            }}
-          />
+        <div style={stylesFlex}>
+          {[formDataKeys.name, formDataKeys.company].map((key) => (
+            <TextField
+              key={key}
+              required
+              id={key}
+              /* error={showErrors && errorMessage[key] !== ''} */
+              color={
+                !showErrors && errorMessage[key] === '' ? 'success' : 'error'
+              }
+              label={key}
+              autoFocus
+              value={formData[key]}
+              variant="standard"
+              name={key}
+              type="text"
+              placeholder={
+                key === formDataKeys.name
+                  ? 'Илон Маск'
+                  : key === formDataKeys.company
+                  ? 'Продажа автомобилей'
+                  : ''
+              }
+              onChange={handleFieldChange}
+              helperText={
+                showErrors
+                  ? errorMessage[key]
+                    ? errorMessage[key]
+                    : 'Заполните обязательное поле'
+                  : ''
+              }
+              size="small"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    {formData[key] && (
+                      <IconButton
+                        onClick={() => handleClearField(key)}
+                        edge="end"
+                      >
+                        <ClearIcon />
+                      </IconButton>
+                    )}
+                  </InputAdornment>
+                ),
+              }}
+            />
+          ))}
         </div>
       ),
     },
+
     {
       label: 'Какой сайт вам нужен',
       component: (
@@ -122,25 +139,62 @@ export function QuizForm({
     {
       label: 'Контактные данные',
       component: (
-        <div>
-          <TextField
-            id="standard-phone"
-            name="standard-phone"
-            label="Телефон"
-            variant="standard"
-          />
-          <TextField
-            id="standard-email"
-            name="standard-email"
-            label="Почта"
-            variant="standard"
-          />
-          <TextField
-            id="standard-telegram"
-            name="standard-telegram"
-            label="Ник в Telegram"
-            variant="standard"
-          />
+        <div style={stylesFlex}>
+          {[formDataKeys.phone, formDataKeys.email, formDataKeys.telegram].map(
+            (key) => (
+              <TextField
+                key={key}
+                required
+                color={!showErrors ? 'success' : 'info'}
+                id={key}
+                name={key}
+                variant="standard"
+                label={key}
+                placeholder={
+                  key === formDataKeys.phone
+                    ? '+7 999 123-45-67'
+                    : key === formDataKeys.email
+                    ? 'hello@mail.ru'
+                    : key === formDataKeys.telegram
+                    ? '@my_nickname'
+                    : ''
+                }
+                type={
+                  key === formDataKeys.phone
+                    ? 'tel'
+                    : key === formDataKeys.email
+                    ? 'email'
+                    : 'text'
+                }
+                value={formData[key]}
+                onChange={handleFieldChange}
+                helperText={
+                  showErrors
+                    ? errorMessage[key]
+                      ? errorMessage[key]
+                      : formData[key] === ''
+                      ? 'Заполните обязательное поле'
+                      : ''
+                    : ''
+                }
+                size="small"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      {formData[key] && (
+                        <IconButton
+                          onClick={() => handleClearField(key)}
+                          edge="end"
+                        >
+                          <ClearIcon />
+                        </IconButton>
+                      )}
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )
+          )}
         </div>
       ),
     },
@@ -151,8 +205,8 @@ export function QuizForm({
       <FormLabel sx={{ fontSize: '14px' }}>
         <mark
           style={{
-            background: '#1976d2',
-            color: '#fff',
+            background: '#fff',
+            fontWeight: 700,
             textTransform: 'uppercase',
             padding: '4px 4px 0px 20px',
             marginLeft: '-20px',

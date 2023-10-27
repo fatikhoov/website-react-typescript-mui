@@ -48,9 +48,21 @@ export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .css-vnkopk-MuiStepLabel-iconContainer': {
     paddingRight: '0',
   },
+  '& .css-1laqsz7-MuiInputAdornment-root': {
+    marginLeft: '-16px',
+  },
+  '& .css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root': {
+    width: '30px',
+    height: '30px',
+    marginLeft: '-16px',
+  },
+  '& .css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root .css-i4bv87-MuiSvgIcon-root':
+    {
+      width: '0.6em',
+    },
 }))
+
 export const StarpageButton = styled(Button)({
-  width: '100%',
   boxShadow: 'none',
   textTransform: 'uppercase',
   fontSize: 18,

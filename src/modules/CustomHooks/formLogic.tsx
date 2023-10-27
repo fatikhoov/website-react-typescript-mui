@@ -1,47 +1,61 @@
 import { useState, useEffect } from 'react'
 
+interface updateErrorProps {
+  k: string
+  v: string
+}
+
 export function useModalLogic() {
   const [open, setOpen] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [activeStep, setActiveStep] = useState(0)
   const maxSteps = 4
 
-  const [formData, setFormData] = useState<{
-    'standard-name': string
-    'standard-company': string
-
-    'website-radio-buttons-group': string
-    'design-radio-buttons-group': string
-
-    'standard-phone': string
-    'standard-email': string
-    'standard-telegram': string
-  }>({
-    'standard-name': '',
-    'standard-company': '',
-
-    'website-radio-buttons-group': 'ecommerce',
-    'design-radio-buttons-group': 'no',
-
-    'standard-phone': '',
-    'standard-email': '',
-    'standard-telegram': '',
+  const formDataKeys = {
+    name: 'Ваше имя',
+    company: 'Описание проекта',
+    websiteType: 'website-radio-buttons-group',
+    firmStyle: 'design-radio-buttons-group',
+    phone: 'Номер телефона',
+    email: 'Ваша почта',
+    telegram: 'Ник в Telegram',
+  }
+  const [formData, setFormData] = useState({
+    [formDataKeys.name]: '',
+    [formDataKeys.company]: '',
+    [formDataKeys.websiteType]: 'ecommerce',
+    [formDataKeys.firmStyle]: 'no',
+    [formDataKeys.phone]: '',
+    [formDataKeys.email]: '',
+    [formDataKeys.telegram]: '',
   })
+  const [showErrors, setShowErrors] = useState(false)
+  // Функция для вывода ошибки
+  const [errorMessage, setErrorMessage] = useState<{ [key: string]: string }>(
+    {}
+  )
 
+  // Здесь отправка формы
   useEffect(() => {
-    // Здесь вы можете реагировать на изменения buttonClicked
     if (isSubmitted) {
       console.log('форма отправлена')
     }
-  }, [isSubmitted]) // Указываем зависимость в массиве
+  }, [isSubmitted])
 
+  //слушаем поля
   const handleFieldChange = (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
     const { name, value, type } = event.target
-
+    setShowErrors(false)
+    setErrorMessage((prevData) => {
+      return {
+        ...prevData,
+        [name]: '', // Используйте квадратные скобки для динамического доступа к ключу
+      }
+    })
     setFormData((prevData) => {
       if (type === 'radio') {
         return {
@@ -56,138 +70,184 @@ export function useModalLogic() {
       }
     })
 
-    handleVerification(formData)
+    setTimeout(() => {
+      handleVerification(formData)
+    }, 1000)
   }
-
+  //очистка поля
   const handleClearField = (fieldName: any) => {
     setFormData({ ...formData, [fieldName]: '' })
   }
 
-  const handleSubmit = () => {
-    setIsSubmitted(true)
-  }
-
-  const handleNext = () => {
-    if (activeStep < maxSteps - 1) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1)
-    } else if (activeStep === maxSteps - 1 && !isSubmitted) {
-      handleSubmit()
+  //кнопки управления вперед назад
+  const handleNext = (formDataNEW: { [key: string]: string }) => {
+    if (handleVerification(formDataNEW)) {
+      if (activeStep < maxSteps - 1) {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+      } else if (activeStep === maxSteps - 1 && !isSubmitted) {
+        handleSubmit()
+      }
+      setShowErrors(false)
+    } else {
+      setShowErrors(true)
     }
   }
-
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
   }
 
+  //открыть и закрыть форму
   const handleClickOpen = () => {
     setOpen(true)
   }
-
   const handleClose = () => {
     setOpen(false)
   }
 
+  const updateError = ({ k, v }: updateErrorProps) => {
+    setErrorMessage((prevData) => {
+      return {
+        ...prevData,
+        [k]: v, // Используйте квадратные скобки для динамического доступа к ключу
+      }
+    })
+  }
+  //проверка полей шага и перед отправкой всей формы
   const handleVerification = (fd: { [key: string]: string }) => {
-    console.log(activeStep, fd)
-
     const minLength = 2
     const maxLength = 20
 
-    // Функция для вывода ошибки
-    const errorMessage = (error: string) => {
-      console.log('Ошибка:', error)
-      // Здесь вы можете выполнить дополнительные действия для отображения ошибки в интерфейсе,
-      // такие как добавление класса или вывод сообщения пользователю.
-    }
+    const name = fd[formDataKeys.name].trim()
+    const company = fd[formDataKeys.company].trim()
+    const phone = fd[formDataKeys.phone].trim()
+    const email = fd[formDataKeys.email].trim()
+
+    const onlyLettersRegex = /^[A-Za-zА-Яа-я]+$/
+    const phoneRegex = /^[\+\d\s\(\)-]+$/
+
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
 
     if (activeStep === 0) {
-      const name = fd['standard-name'].trim()
-      const company = fd['standard-company'].trim()
-      const onlyLettersRegex = /^[A-Za-zА-Яа-я]+$/
-      let errors = []
-
-      if (name.length < minLength || name.length > maxLength) {
-        errors.push('Имя должно быть от 2 до 20 символов')
-      }
-
-      if (!onlyLettersRegex.test(name)) {
-        errors.push('Имя должно содержать только буквы')
-      }
-
-      if (company.length < minLength || company.length > maxLength) {
-        errors.push('Название компании должно быть от 2 до 20 символов')
-      }
-
-      if (!onlyLettersRegex.test(company)) {
-        errors.push('Название компании должно содержать только буквы')
-      }
-
-      if (errors.length === 0) {
-        console.log('Верификация успешна')
-        handleNext()
+      if (name.length === 0) {
+        updateError({
+          k: formDataKeys.name,
+          v: `${formDataKeys.name} не заполнено `,
+        })
+        return false
+      } else if (name.length < minLength && name.length > 0) {
+        updateError({
+          k: formDataKeys.name,
+          v: `${formDataKeys.name} слишком короткое `,
+        })
+        return false
+      } else if (name.length > maxLength) {
+        updateError({
+          k: formDataKeys.name,
+          v: `${formDataKeys.name} слишком длинное `,
+        })
+        return false
+      } else if (!onlyLettersRegex.test(name)) {
+        updateError({
+          k: formDataKeys.name,
+          v: `${formDataKeys.name} должно быть из букв `,
+        })
+        return false
       } else {
-        errors.forEach(errorMessage)
+        updateError({
+          k: formDataKeys.name,
+          v: '',
+        })
       }
-    } else if (activeStep === 1) {
-      const selectedWebsiteType = fd['website-radio-buttons-group']
-      if (!selectedWebsiteType) {
-        errorMessage('Выберите тип сайта')
-      } else {
-        console.log('Выбран тип сайта:', selectedWebsiteType)
-        handleNext()
-      }
-    } else if (activeStep === 2) {
-      const hasFirmStyle = fd['design-radio-buttons-group']
 
-      if (!hasFirmStyle) {
-        errorMessage('Выберите, есть ли у вас фирменный стиль')
+      if (company.length === 0) {
+        updateError({
+          k: formDataKeys.company,
+          v: `${formDataKeys.company} не заполнено `,
+        })
+        return false
+      } else if (company.length < minLength && company.length > 0) {
+        updateError({
+          k: formDataKeys.company,
+          v: `${formDataKeys.company} слишком короткое `,
+        })
+        return false
+      } else if (company.length > maxLength) {
+        updateError({
+          k: formDataKeys.company,
+          v: `${formDataKeys.company} слишком длинное `,
+        })
+        return false
       } else {
-        console.log('Ответ на вопрос о фирменном стиле:', hasFirmStyle)
-        handleNext()
+        updateError({
+          k: formDataKeys.company,
+          v: '',
+        })
       }
     } else if (activeStep === 3) {
-      const phone = fd['standard-phone'].trim()
-      const email = fd['standard-email'].trim()
-      const telegram = fd['standard-telegram'].trim()
-
-      const phoneRegex = /^\+?[0-9]+$/
-      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
-
-      let errors = []
-
-      if (phone.length < minLength || phone.length > maxLength) {
-        errors.push('Длина номера телефона должна быть от 2 до 20 символов')
-      }
-
       if (!phone.match(phoneRegex)) {
-        errors.push('Номер телефона должен содержать только цифры')
-      }
-
-      if (email.length < minLength || email.length > maxLength) {
-        errors.push(
-          'Длина адреса электронной почты должна быть от 2 до 20 символов'
-        )
+        updateError({
+          k: formDataKeys.phone,
+          v: `Некорректный ${formDataKeys.phone}`,
+        })
+        return false
+      } else if (phone.length > maxLength) {
+        updateError({
+          k: formDataKeys.phone,
+          v: `${formDataKeys.phone} слишком длинный`,
+        })
+        return false
+      } else if (phone.length < 10) {
+        updateError({
+          k: formDataKeys.phone,
+          v: `${formDataKeys.phone} слишком короткий`,
+        })
+        return false
+      } else {
+        updateError({
+          k: formDataKeys.phone,
+          v: '',
+        })
       }
 
       if (!email.match(emailRegex)) {
-        errors.push('Неправильный формат адреса электронной почты')
-      }
-
-      if (telegram.length < minLength || telegram.length > maxLength) {
-        errors.push('Длина Telegram-имени должна быть от 2 до 20 символов')
-      }
-
-      if (errors.length === 0) {
-        console.log('Верификация успешна')
-        handleNext()
+        updateError({
+          k: formDataKeys.email,
+          v: `Некорректная почта`,
+        })
+        return false
+      } else if (email.length > 30) {
+        updateError({
+          k: formDataKeys.email,
+          v: `Почта слишком длинная`,
+        })
+        return false
+      } else if (email.length < minLength) {
+        updateError({
+          k: formDataKeys.email,
+          v: `Почта короткая`,
+        })
+        return false
       } else {
-        errors.forEach(errorMessage)
+        updateError({
+          k: formDataKeys.email,
+          v: '',
+        })
       }
     }
+
+    return true
+  }
+
+  //отправка формы
+  const handleSubmit = () => {
+    setIsSubmitted(true)
   }
 
   return {
+    formDataKeys,
     formData,
+    errorMessage,
+    showErrors,
     setFormData,
     handleFieldChange,
     handleClearField,
@@ -196,6 +256,7 @@ export function useModalLogic() {
     activeStep,
     maxSteps,
     handleBack,
+    handleNext,
     handleClickOpen,
     handleClose,
     handleVerification,

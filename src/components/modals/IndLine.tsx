@@ -81,7 +81,7 @@ interface activeStepProp {
 
 export default function CustomizedSteppers({ activeStep }: activeStepProp) {
   return (
-    <Stack sx={{ width: '100%', margin: 0, padding: '0 8px' }}>
+    <Stack sx={{ width: '100%', marginLeft: '-8px', padding: '0' }}>
       <Stepper
         alternativeLabel={false}
         activeStep={activeStep}

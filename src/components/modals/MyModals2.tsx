@@ -18,11 +18,14 @@ export default function CustomizedDialogs2() {
     isSubmitted,
     activeStep,
     maxSteps,
+    formDataKeys,
     formData,
+    errorMessage,
+    showErrors,
     handleBack,
+    handleNext,
     handleClickOpen,
     handleClose,
-    handleVerification,
     handleFieldChange,
     handleClearField,
   } = useModalLogic()
@@ -44,23 +47,56 @@ export default function CustomizedDialogs2() {
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
           {!isSubmitted ? (
-            <div>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+              }}
+            >
               <p style={{ fontSize: '18px' }}>Разработка сайта</p>
-              <p
+              <div
                 style={{
-                  fontSize: '12px',
-                  textAlign: 'left',
-                  fontWeight: 500,
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}
               >
-                Пройдите тест для персонального расчета
-              </p>
+                <p
+                  style={{
+                    fontSize: '12px',
+                    textAlign: 'left',
+                    fontWeight: 500,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <span>Пройдите тест для персонального расчета</span>
+                </p>
+                <p
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: '8px',
+                  }}
+                >
+                  <CustomizedSteppers activeStep={activeStep} />{' '}
+                  <span
+                    style={{
+                      fontSize: '12px',
+                      color: '#784af4',
+                      fontWeight: 500,
+                    }}
+                  >
+                    {activeStep + 1}/{maxSteps}
+                  </span>
+                </p>
+              </div>
             </div>
           ) : (
             'Разработка сайта'
           )}
         </DialogTitle>
-        {!isSubmitted ? <CustomizedSteppers activeStep={activeStep} /> : ''}
         <IconButton
           aria-label="close"
           onClick={handleClose}
@@ -76,10 +112,13 @@ export default function CustomizedDialogs2() {
         <DialogContent dividers>
           {!isSubmitted ? (
             <QuizForm
+              formDataKeys={formDataKeys}
               formData={formData}
               activeStep={activeStep}
               handleFieldChange={handleFieldChange}
               handleClearField={(fieldName) => handleClearField(fieldName)}
+              errorMessage={errorMessage}
+              showErrors={showErrors}
             />
           ) : (
             <div
@@ -117,13 +156,25 @@ export default function CustomizedDialogs2() {
               }}
             >
               <Button
+                sx={{
+                  borderRadius: 30,
+                }}
+                variant="outlined"
                 size="small"
                 onClick={handleBack}
                 disabled={activeStep === 0}
               >
                 Назад
               </Button>
-              <Button size="small" onClick={() => handleVerification(formData)}>
+              <Button
+                sx={{
+                  borderRadius: 30,
+                  background: 'linear-gradient(254deg,#d900dd 0,#0345fa 100%)',
+                }}
+                variant="contained"
+                size="small"
+                onClick={() => handleNext(formData)}
+              >
                 {activeStep === maxSteps - 1 ? 'Отправить' : 'Вперед'}
               </Button>
             </div>
